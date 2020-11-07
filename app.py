@@ -9,20 +9,21 @@ while True:
     print()
 
     if userSelection == "1":
-        username = input("Please type in a username: ")
-        password = input("Please type in a password: ")
+        username = input("Please enter your username: ")
+        password = input("Please enter your password: ")
         print()
-        if functions.userLogin(username, password):
+        user = functions.userLogin(username, password)
+        if user:
             while True:
                 menuSelection = input("1. Post new Exploit\n2. See your own Exploits\n3. See other Hackers' Exploits\n4. EXIT ")
                 print()
                 if menuSelection == "1":
-                    content = input("Please add an exploit: ")
-                    functions.postExploit(username, content)
+                    content = input("Please enter Exploit: ")
+                    functions.postExploit(content, user)
                 elif menuSelection == "2":
-                    functions.myExploits(username)
+                    functions.myExploits(user)
                 elif menuSelection == "3":
-                    functions.otherHackerExploits(username)
+                    functions.otherHackerExploits(user)
                 elif menuSelection == "4":
                     functions.userLogout()
                 else:
@@ -36,7 +37,6 @@ while True:
             print("Password must be 6 characters or more")
         else:
             functions.userSignup(username,password)
-
     else:
         print("There was an error")
     break
