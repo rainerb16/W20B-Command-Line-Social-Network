@@ -64,7 +64,7 @@ def postExploit(content, user):
     try:
         conn = mariadb.connect(user=dbcreds.user, password=dbcreds.password, port=dbcreds.port, database=dbcreds.database, host=dbcreds.host)
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO exploits(content, user_id) VALUES(?, ?)", [content, user[0]])
+        cursor.execute("INSERT INTO exploits(content, user_id) VALUES(?, ?)", [content, user[2]])
         conn.commit()
 
         if(cursor.rowcount == 1):
@@ -91,13 +91,15 @@ def myExploits(user):
     try:
         conn = mariadb.connect(user=dbcreds.user, password=dbcreds.password, port=dbcreds.port, database=dbcreds.database, host=dbcreds.host)
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM exploits WHERE user_id = ?", [user[0], ])
+        cursor.execute("SELECT * FROM exploits WHERE user_id = ?", [user[2], ])
         exploits = cursor.fetchall()
         for exploit in exploits:
-            print("All of your Exploits: " + exploits)
+            print("Id: " + str(exploit[2]))
+            print("Exploit: " + str(exploit[0]))
+            print()
 
         if(cursor.rowcount == 0):
-            print("Something went wrong, Exploit was not created.")
+            print("Something went wrong.")
 
     except mariadb.ProgrammingError:
         print("Sorry, a Hacker here made a programming error!")
@@ -136,7 +138,7 @@ def otherHackerExploits(user):
 
 
 # USER LOGOUT
-def userLogout():
+def userLogout(user):
     conn = None
     cursor = None
     conn = mariadb.connect(user=dbcreds.user, password=dbcreds.password, port=dbcreds.port, database=dbcreds.database, host=dbcreds.host)

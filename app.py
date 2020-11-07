@@ -25,10 +25,10 @@ while True:
                 elif menuSelection == "3":
                     functions.otherHackerExploits(user)
                 elif menuSelection == "4":
-                    functions.userLogout()
+                    functions.userLogout(user)
+                    break
                 else:
                     print("Please make a valid selection...")
-                break
 
     elif userSelection == "2":
         username = input("Please enter a username: ")
