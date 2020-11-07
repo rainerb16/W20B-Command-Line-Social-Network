@@ -15,16 +15,20 @@ while True:
         user = functions.userLogin(username, password)
         if user:
             while True:
-                menuSelection = input("1. Post new Exploit\n2. See your own Exploits\n3. See other Hackers' Exploits\n4. EXIT ")
+                menuSelection = input("1. Post new Exploit\n2. Update Exploit\n3. See your own Exploits\n4. See other Hackers' Exploits\n5. EXIT ")
                 print()
                 if menuSelection == "1":
                     content = input("Please enter Exploit: ")
                     functions.postExploit(content, user)
                 elif menuSelection == "2":
-                    functions.myExploits(user)
+                    id = input("Please enter the Exploit Id you wish to update: ")
+                    updatedContent = input("Please updated your Exploit: ")
+                    functions.updateExploit(updatedContent, id)
                 elif menuSelection == "3":
-                    functions.otherHackerExploits(user)
+                    functions.myExploits(user)
                 elif menuSelection == "4":
+                    functions.otherHackerExploits(user)
+                elif menuSelection == "5":
                     functions.userLogout(user)
                     break
                 else:

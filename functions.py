@@ -75,8 +75,8 @@ def postExploit(content, user):
 
     except mariadb.ProgrammingError:
         print("Sorry, a Hacker here made a programming error!")
-    # except mariadb.OperationalError:
-    #     print("There was a connection error!")
+    except mariadb.OperationalError:
+        print("There was a connection error!")
     finally:
         if cursor != None:
             cursor.close()
@@ -85,6 +85,33 @@ def postExploit(content, user):
             conn.close()
 
 
+# UPDATE POST
+def updateExploit(updatedContent, id):
+    conn = None
+    cursor = None
+    try:
+        conn = mariadb.connect(user=dbcreds.user, password=dbcreds.password, port=dbcreds.port, database=dbcreds.database, host=dbcreds.host)
+        cursor = conn.cursor()
+        cursor.execute("UPDATE exploits SET content = ? WHERE id = ?", [updatedContent, id])
+        conn.commit()
+
+        if(cursor.rowcount == 1):
+            print("Exploit has been updated!")
+            print()
+        else:
+            print("Something went wrong, Exploit was not updated.")
+
+    except mariadb.ProgrammingError:
+        print("Sorry, a Hacker here made a programming error!")
+    except mariadb.OperationalError:
+        print("There was a connection error!")
+    finally:
+        if cursor != None:
+            cursor.close()
+        if conn != None:
+            conn.rollback()
+            conn.close()
+
 # GET OWN EXPLOITS
 def myExploits(user):
     conn = None
@@ -92,10 +119,11 @@ def myExploits(user):
     try:
         conn = mariadb.connect(user=dbcreds.user, password=dbcreds.password, port=dbcreds.port, database=dbcreds.database, host=dbcreds.host)
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM exploits WHERE user_id = ?", [user[2], ])
+        cursor.execute("SELECT * FROM exploits e INNER JOIN hackers h ON e.user_id = h.id WHERE user_id = ?", [user[2], ])
         exploits = cursor.fetchall()
         for exploit in exploits:
-            print("Id: " + str(exploit[2]))
+            print("Alias: " + str(exploit[3]))
+            print("Exploit Id: " + str(exploit[1]))
             print("Exploit: " + str(exploit[0]))
             print()
 
@@ -150,3 +178,4 @@ def userLogout(user):
     conn.rollback()
     conn.close()
     print("You're logged out!")
+

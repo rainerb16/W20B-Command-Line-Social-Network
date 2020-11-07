@@ -38,7 +38,7 @@ CREATE TABLE `exploits` (
 
 LOCK TABLES `exploits` WRITE;
 /*!40000 ALTER TABLE `exploits` DISABLE KEYS */;
-INSERT INTO `exploits` VALUES ('PLEASE WORK',3,2),('apparently you don\'t know how to code',4,1),('~THE~ DIAGRAM',5,1),('BRUH do you even SQL??',6,3),('Wear Black, Listen to Techno',7,4);
+INSERT INTO `exploits` VALUES ('Updating this exploit!',3,2),('apparently you don\'t know how to code',4,1),('~THE~ DIAGRAM',5,1),('BRUH do you even SQL??',6,3),('Wear Black, Listen to Techno',7,4);
 /*!40000 ALTER TABLE `exploits` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,4 +81,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-07  8:52:33
+-- Dump completed on 2020-11-07  9:43:30
