@@ -69,6 +69,7 @@ def postExploit(content, user):
 
         if(cursor.rowcount == 1):
             print("Exploit has been created!")
+            print()
         else:
             print("Something went wrong, Exploit was not created.")
 
@@ -120,10 +121,12 @@ def otherHackerExploits(user):
     try:
         conn = mariadb.connect(user=dbcreds.user, password=dbcreds.password, port=dbcreds.port, database=dbcreds.database, host=dbcreds.host)
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM exploits WHERE user_id != ?", [user[0], ])
+        cursor.execute("SELECT * FROM exploits e INNER JOIN hackers h ON e.user_id = h.id WHERE user_id != ?", [user[2], ])
         exploits = cursor.fetchall()
         for exploit in exploits:
-            print("Here are what other Hackers are saying: ")
+            print("Alias: " + str(exploit[3]))
+            print("Exploit: " + str(exploit[0]))
+            print()
 
     except mariadb.ProgrammingError:
         print("Sorry, a Hacker here made a programming error!")
